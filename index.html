@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Engineering Proposal Draft Generator</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f8;
+    padding:40px;
+}
+
+.container{
+    max-width:800px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+h1{
+    margin-bottom:10px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 20px;
+    background:#0077cc;
+    color:white;
+    border:none;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#005fa3;
+}
+
+#output{
+    margin-top:30px;
+    background:#fafafa;
+    padding:20px;
+    border:1px solid #ddd;
+    border-radius:5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Proposal Draft Generator</h1>
+<p>Generate a structured engineering proposal draft from a project brief.</p>
+
+<form id="proposalForm">
+
+<label>Client Name</label>
+<input type="text" id="client">
+
+<label>Project Name</label>
+<input type="text" id="project">
+
+<label>Project Location</label>
+<input type="text" id="location">
+
+<label>Project Type</label>
+<select id="type">
+<option>Land Development</option>
+<option>Road / Infrastructure</option>
+<option>Water / Sewer</option>
+<option>Environmental</option>
+<option>General Engineering</option>
+</select>
+
+<label>Project Objective</label>
+<textarea id="objective"></textarea>
+
+<label>Deliverables</label>
+<textarea id="deliverables"></textarea>
+
+<label>Expected Timeline</label>
+<input type="text" id="timeline">
+
+<button type="button" onclick="generateDraft()">Generate Proposal Draft</button>
+
+</form>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+
+function generateDraft(){
+
+const client = document.getElementById("client").value
+const project = document.getElementById("project").value
+const location = document.getElementById("location").value
+const type = document.getElementById("type").value
+const objective = document.getElementById("objective").value
+const deliverables = document.getElementById("deliverables").value
+const timeline = document.getElementById("timeline").value
+
+const draft = `
+<h2>Proposal Draft</h2>
+
+<h3>Executive Summary</h3>
+This proposal outlines the engineering services for the ${project} located in ${location} for ${client}.
+
+<h3>Understanding of the Project</h3>
+The project involves ${type}. The objective of the project is: ${objective}.
+
+<h3>Scope of Services</h3>
+Our team will provide engineering support including analysis, design, documentation, and coordination as required.
+
+<h3>Deliverables</h3>
+${deliverables}
+
+<h3>Project Schedule</h3>
+The project is expected to be completed within the following timeframe:
+${timeline}
+
+<h3>Closing Statement</h3>
+Our engineering team is committed to delivering high-quality technical services for this project.
+`
+
+document.getElementById("output").innerHTML = draft
+
+}
+
+</script>
+
+</body>
+</html>
