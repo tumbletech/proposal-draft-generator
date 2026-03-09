@@ -1,238 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Proposal Draft Generator</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      padding: 40px;
-    }
+<meta charset="UTF-8">
+<title>Proposal Draft Generator</title>
 
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
+<style>
 
-    h1 {
-      margin-bottom: 5px;
-    }
+body{
+font-family: Arial, sans-serif;
+background:#f4f6f8;
+padding:40px;
+}
 
-    .subtitle {
-      color: #555;
-      margin-bottom: 25px;
-    }
+.container{
+max-width:800px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:8px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
 
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
+h1{
+margin-bottom:5px;
+}
 
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
+.subtitle{
+color:#555;
+margin-bottom:25px;
+}
 
-    .button-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
+label{
+display:block;
+margin-top:15px;
+font-weight:bold;
+}
 
-    button {
-      padding: 12px 20px;
-      background: #0077cc;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 15px;
-    }
+input, textarea, select{
+width:100%;
+padding:10px;
+margin-top:5px;
+border:1px solid #ccc;
+border-radius:4px;
+box-sizing:border-box;
+}
 
-    button:hover {
-      background: #005fa3;
-    }
+.button-row{
+margin-top:20px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
 
-    .secondary-btn {
-      background: #6c757d;
-    }
+button{
+padding:12px 18px;
+background:#0077cc;
+color:white;
+border:none;
+border-radius:4px;
+cursor:pointer;
+font-size:15px;
+}
 
-    .secondary-btn:hover {
-      background: #545b62;
-    }
+button:hover{
+background:#005fa3;
+}
 
-    #output {
-      margin-top: 35px;
-      background: #fafafa;
-      padding: 25px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      min-height: 40px;
-    }
+.secondary{
+background:#6c757d;
+}
 
-    #output h2 {
-      margin-bottom: 20px;
-    }
+.secondary:hover{
+background:#545b62;
+}
 
-    #output h3 {
-      margin-top: 20px;
-      color: #0077cc;
-    }
+#output{
+margin-top:35px;
+background:#fafafa;
+padding:25px;
+border:1px solid #ddd;
+border-radius:6px;
+min-height:40px;
+}
 
-    #output p,
-    #output li {
-      line-height: 1.6;
-    }
+#output h3{
+color:#0077cc;
+margin-top:20px;
+}
 
-    .note {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #555;
-      border-top: 1px solid #ddd;
-      padding-top: 15px;
-    }
-  </style>
+.note{
+margin-top:20px;
+font-size:14px;
+color:#555;
+border-top:1px solid #ddd;
+padding-top:10px;
+}
+
+.loading{
+color:#666;
+font-style:italic;
+}
+
+</style>
+
 </head>
 
 <body>
-  <div class="container">
-    <h1>Proposal Draft Generator</h1>
-    <p class="subtitle">
-      Turn a project brief into a structured engineering proposal draft in seconds.
-    </p>
 
-    <form id="proposalForm">
-      <label for="client">Client Name</label>
-      <input type="text" id="client" />
+<div class="container">
 
-      <label for="project">Project Name</label>
-      <input type="text" id="project" />
+<h1>Proposal Draft Generator</h1>
+<p class="subtitle">
+Turn a project brief into a structured engineering proposal draft in seconds.
+</p>
 
-      <label for="location">Project Location</label>
-      <input type="text" id="location" />
+<form id="proposalForm">
 
-      <label for="type">Project Type</label>
-      <select id="type">
-        <option>Land Development</option>
-        <option>Road / Infrastructure</option>
-        <option>Water / Sewer</option>
-        <option>Environmental</option>
-        <option>General Engineering</option>
-      </select>
+<label>Client Name</label>
+<input type="text" id="client">
 
-      <label for="objective">Project Objective</label>
-      <textarea id="objective"></textarea>
+<label>Project Name</label>
+<input type="text" id="project">
 
-      <label for="deliverables">Deliverables</label>
-      <textarea id="deliverables"></textarea>
+<label>Project Location</label>
+<input type="text" id="location">
 
-      <label for="timeline">Expected Timeline</label>
-      <input type="text" id="timeline" />
+<label>Project Type</label>
+<select id="type">
+<option>Land Development</option>
+<option>Road / Infrastructure</option>
+<option>Water / Sewer</option>
+<option>Environmental</option>
+<option>General Engineering</option>
+</select>
 
-      <div class="button-row">
-        <button type="button" class="secondary-btn" onclick="fillSampleData()">Use Sample Data</button>
-        <button type="button" onclick="generateDraft()">Generate Proposal Draft</button>
-        <button type="button" class="secondary-btn" onclick="clearForm()">Clear Form</button>
-      </div>
-    </form>
+<label>Project Objective</label>
+<textarea id="objective"></textarea>
 
-    <div id="output"></div>
-  </div>
+<label>Deliverables</label>
+<textarea id="deliverables"></textarea>
 
-  <script>
-    function fillSampleData() {
-      document.getElementById("client").value = "ABC Land Development Corporation";
-      document.getElementById("project").value = "Riverside Estates Site Development";
-      document.getElementById("location").value = "Cavite";
-      document.getElementById("type").value = "Land Development";
-      document.getElementById("objective").value = "Prepare engineering design and documentation for site development works";
-      document.getElementById("deliverables").value = "Site development plans, drainage layout, grading plan, cost estimate";
-      document.getElementById("timeline").value = "45 calendar days";
-    }
+<label>Expected Timeline</label>
+<input type="text" id="timeline">
 
-    function clearForm() {
-      document.getElementById("proposalForm").reset();
-      document.getElementById("output").innerHTML = "";
-    }
+<div class="button-row">
 
-    function generateDraft() {
-      const client = document.getElementById("client").value;
-      const project = document.getElementById("project").value;
-      const location = document.getElementById("location").value;
-      const type = document.getElementById("type").value;
-      const objective = document.getElementById("objective").value;
-      const deliverables = document.getElementById("deliverables").value;
-      const timeline = document.getElementById("timeline").value;
+<button type="button" class="secondary" onclick="fillSampleData()">
+Use Sample Data
+</button>
 
-      const draft = `
-        <h2>Proposal Draft</h2>
+<button type="button" onclick="generateDraft()">
+Generate Proposal Draft
+</button>
 
-        <h3>1. Executive Summary</h3>
-        <p>
-          This proposal is submitted to <strong>${client || "the client"}</strong> for the
-          <strong>${project || "proposed project"}</strong> located in
-          <strong>${location || "the project location"}</strong>.
-          The engagement covers professional engineering services for a
-          <strong>${type || "general engineering"}</strong> project.
-        </p>
+<button type="button" class="secondary" onclick="clearForm()">
+Clear Form
+</button>
 
-        <h3>2. Understanding of the Project</h3>
-        <p>
-          Based on the provided brief, the primary objective of the project is:
-          <em>${objective || "No project objective provided yet."}</em>
-        </p>
+</div>
 
-        <p>
-          Our team understands that successful delivery will require technical review,
-          proper documentation, and coordinated engineering support aligned with project requirements.
-        </p>
+</form>
 
-        <h3>3. Scope of Services</h3>
-        <ul>
-          <li>Review of available project information and requirements</li>
-          <li>Preparation of relevant engineering documentation</li>
-          <li>Coordination and development of technical deliverables</li>
-          <li>Professional support throughout the agreed service period</li>
-        </ul>
+<div id="output"></div>
 
-        <h3>4. Deliverables</h3>
-        <p>${deliverables || "Deliverables will be defined based on the final project brief."}</p>
+</div>
 
-        <h3>5. Project Schedule</h3>
-        <p>
-          The expected timeline for this engagement is:
-          <strong>${timeline || "To be determined"}</strong>.
-        </p>
+<script>
 
-        <h3>6. Closing Statement</h3>
-        <p>
-          We appreciate the opportunity to submit this proposal and look forward to supporting
-          <strong>${client || "your team"}</strong> on the
-          <strong>${project || "project"}</strong>.
-          Our goal is to provide clear, reliable, and professional engineering support throughout the engagement.
-        </p>
+function fillSampleData(){
 
-        <p class="note">
-          Note: This draft is automatically generated for initial reference.
-          Final proposals should be reviewed and finalized by the engineering team.
-        </p>
-      `;
+document.getElementById("client").value = "ABC Land Development Corporation"
+document.getElementById("project").value = "Riverside Estates Site Development"
+document.getElementById("location").value = "Cavite"
+document.getElementById("type").value = "Land Development"
+document.getElementById("objective").value = "Prepare engineering design and documentation for site development works"
+document.getElementById("deliverables").value = "Site development plans, drainage layout, grading plan, cost estimate"
+document.getElementById("timeline").value = "45 calendar days"
 
-      document.getElementById("output").innerHTML = draft;
-    }
-  </script>
+}
+
+function clearForm(){
+
+document.getElementById("proposalForm").reset()
+document.getElementById("output").innerHTML = ""
+
+}
+
+async function generateDraft(){
+
+const client = document.getElementById("client").value
+const project = document.getElementById("project").value
+const location = document.getElementById("location").value
+const type = document.getElementById("type").value
+const objective = document.getElementById("objective").value
+const deliverables = document.getElementById("deliverables").value
+const timeline = document.getElementById("timeline").value
+
+document.getElementById("output").innerHTML = "<p class='loading'>Generating AI proposal draft...</p>"
+
+try{
+
+const response = await fetch("https://tumbletech.app.n8n.cloud/webhook-test/proposal-generator", {
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+client,
+project,
+location,
+type,
+objective,
+deliverables,
+timeline
+})
+
+})
+
+const data = await response.json()
+
+document.getElementById("output").innerHTML = `
+<h2>Proposal Draft</h2>
+${data.proposal}
+
+<p class="note">
+Note: This draft is automatically generated for initial reference. 
+Final proposals should be reviewed and finalized by the engineering team.
+</p>
+`
+
+}catch(error){
+
+document.getElementById("output").innerHTML =
+"<p style='color:red'>Error generating proposal. Please check the n8n workflow.</p>"
+
+}
+
+}
+
+</script>
+
 </body>
 </html>
